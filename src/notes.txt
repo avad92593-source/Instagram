@@ -1,0 +1,91 @@
+#OOP IN SCALA
+import scala.io.StdIn._
+
+// 1. ABSTRACTION
+abstract class Person(val name: String, val age: Int) {
+
+  // Abstract method
+  def introduce(): Unit
+
+  // Concrete method
+  def displayAge(): Unit = {
+    println(s"Age: $age")
+  }
+}
+
+
+// 2. TRAIT
+trait SportsPlayer {
+
+  def playsport(): Unit = {
+    println("Playing football")
+  }
+}
+
+
+// 3. INHERITANCE + CONSTRUCTOR
+class Student(
+    name: String,
+    age: Int,
+    val rollNo: Int
+) extends Person(name, age) with SportsPlayer {
+
+  println(s"Student object created for $name")
+
+  // 4. METHOD OVERRIDING
+  override def introduce(): Unit = {
+    println(s"Name: $name")
+    println(s"Roll No: $rollNo")
+  }
+}
+
+
+// 5. COMPANION OBJECT + FACTORY METHOD
+object Student {
+
+  def apply(name: String, age: Int, rollNo: Int): Student = {
+    new Student(name, age, rollNo)
+  }
+}
+
+
+// 6. SINGLETON OBJECT
+object College {
+
+  def displayCollege(): Unit = {
+    println("College: GCT")
+  }
+}
+
+
+// 7. MAIN OBJECT
+object Main {
+
+  def main(args: Array[String]): Unit = {
+
+    // Calling singleton object
+    College.displayCollege()
+
+    // Getting input from user
+    print("Enter student name: ")
+    val name = readLine()
+
+    print("Enter student age: ")
+    val age = readInt()
+
+    print("Enter student roll number: ")
+    val rollNo = readInt()
+
+    // Creating object using companion object's apply() method
+    val student = Student(name, age, rollNo)
+
+    // Display student details
+    println("\n--- Student Details ---")
+
+    student.introduce()
+
+    student.displayAge()
+
+    student.playsport()
+  }
+}
